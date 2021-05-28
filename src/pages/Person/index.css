@@ -1,3 +1,27 @@
-.person h1 {
-    color: #ecd014;
+.person {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.person-info {
+  border: 20px;
+  color: #ecd014;
+  padding: 20px;
+  letter-spacing: 1.5px;
+}
+.person > div {
+  margin: 20px;
+  margin-left: 30px;
+}
+.person-info h1 {
+  text-align: center;
+}
+.person-info > h3 {
+  color: white;
+}
+
+.person_image {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
 }

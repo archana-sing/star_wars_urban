@@ -20,6 +20,25 @@ const getFailure = (error) => {
     error: error,
   };
 };
+const getPersonRequest = () => {
+    return {
+      type: getActions.GET_PERSON_REQUEST,
+    };
+  };
+  
+  const getPersonSuccess = (payload) => {
+    return {
+      type: getActions.GET_PERSON_SUCCESS,
+      payload,
+    };
+  };
+  
+  const getPersonFailure = (error) => {
+    return {
+      type: getActions.GET_PERSON_FAILURE,
+      error: error,
+    };
+  };
 export const getPeople = (query) => (dispatch) => {
   dispatch(getRequest());
   return axios
@@ -31,3 +50,14 @@ export const getPeople = (query) => (dispatch) => {
       dispatch(getFailure(err));
     });
 };
+export const getPerson = (url) => (dispatch) => {
+    dispatch(getPersonRequest());
+    return axios
+      .get(`${url}`)
+      .then((res) => {
+           dispatch(getPersonSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(getPersonFailure(err));
+      });
+  };

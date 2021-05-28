@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import logo from "./star-wars-logo.png";
 import loadingGif from "../../images/loading-gif-orange-10.gif";
-import { getPeople } from "../../Redux/action";
+import { getPeople, getPerson } from "../../Redux/action";
 import { useHistory } from "react-router";
 
 const Suggestions = styled.div`
@@ -22,6 +22,7 @@ const Suggestions = styled.div`
     flex: 1;
     padding: 10px;
     height: 10px;
+    cursor : pointer;
   }
   & :nth-child(${({ active }) => active}) {
     background-color: black;
@@ -33,30 +34,57 @@ const Suggestions = styled.div`
 function HomePage() {
   const [query, setQuery] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [showCross, setShowCross] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState([]);
   const [active, setActive] = React.useState(0);
   const history = useHistory();
 
   const dispatch = useDispatch();
   const people = useSelector((state) => state.people.data);
+  function getResult(query) {
+    let output = people
+      .filter((person) => person.name.toLowerCase().includes(query))
+      .map((person) => person);
+
+    setSuggestions(output);
+    setLoading(false);
+  }
+  const debounce = function (fn, d) {
+    let timer;
+    let context = this;
+    clearTimeout(timer);
+    return function () {
+      timer = setTimeout(() => {
+        fn.apply(context, arguments);
+        setShowCross(true);
+        setLoading(false);
+      }, d);
+    };
+  };
+  const betterFunction = debounce(getResult, 500);
 
   React.useEffect(() => {
     dispatch(getPeople());
-
     if (query) {
-      let output = people
-        .filter((person) => person.name.toLowerCase().includes(query))
-        .map((person) => person);
-
-      setSuggestions(output);
-      console.log(suggestions);
+      betterFunction(query);
     } else {
+      setLoading(false);
+      setShowCross(false);
       setSuggestions([]);
     }
   }, [query]);
 
+  const handleClick = () => {
+    let url = suggestions[active].url;
+    console.log(url);
+    let split_url = url.split("/");
+    let id = split_url[split_url.length - 2];
+    dispatch(getPerson(url));
+    history.push(`/person/${id}`);
+  };
+
   const handleChangeActiveSuggestion = (e) => {
-    // console.log(e.keyCode, active);
+    console.log(active);
     switch (e.keyCode) {
       case 40: {
         if (active >= suggestions.length) {
@@ -79,7 +107,12 @@ function HomePage() {
         break;
       }
       case 13: {
-        history.push("/person/:id");
+        let url = suggestions[active].url;
+        console.log(url);
+        let split_url = url.split("/");
+        let id = split_url[split_url.length - 2];
+        dispatch(getPerson(url));
+        history.push(`/person/${id}`);
         break;
       }
       default: {
@@ -91,9 +124,6 @@ function HomePage() {
   const handleInputChange = (e) => {
     setQuery(e.target.value);
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
   const handleClear = () => {
     setQuery("");
@@ -114,17 +144,28 @@ function HomePage() {
           onChange={handleInputChange}
         />
         <div>
-          {query && (
+          {showCross && (
             <span className="search-input_clear-input" onClick={handleClear}>
               x
             </span>
           )}
-          {loading && <img src={loadingGif} alt="loading" height="18px" />}
+          {loading && (
+            <img
+              style={{ marginLeft: "20px" }}
+              src={loadingGif}
+              alt="loading"
+              height="18px"
+            />
+          )}
         </div>
       </div>
       <Suggestions len={suggestions.length} active={active}>
         {suggestions.map((e, i) => (
-          <div key={e.url} onMouseOver={() => setActive(i + 1)}>
+          <div
+            key={e.url}
+            onMouseOver={() => setActive(i + 1)}
+            onClick={handleClick}
+          >
             {e.name}
           </div>
         ))}
