@@ -1,0 +1,15 @@
+.suggestion-box{
+    padding : 10px;
+    flex-direction : column;
+    background: #2d2f30;
+    max-height : 150px;
+    width: fit-content;
+    margin-left : 550px;
+    margin-right : 20px;
+    overflow : auto;
+    padding-left : 100px;
+    color: white;
+    border-bottom-right-radius: 10px ;
+    border-bottom-left-radius: 10px ;
+    border : 1px solid black;
+}
