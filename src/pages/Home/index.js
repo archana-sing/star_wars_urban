@@ -4,13 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import logo from "./star-wars-logo.png";
 import loadingGif from "../../images/loading-gif-orange-10.gif";
+import searchIcon from "../../images/search-button.png";
 import { getPeople, getPerson } from "../../Redux/action";
 import { useHistory } from "react-router";
 
+// Styled component for showing suggetions
 const Suggestions = styled.div`
   display: ${({ len }) => (len !== 0 ? "flex" : "none")};
   padding: 5px;
   flex-direction: column;
+  font-weight: 400;
+  font-size: 12px;
   max-height: 400px;
   overflow: auto;
   padding-left: 0px;
@@ -21,8 +25,8 @@ const Suggestions = styled.div`
   & * {
     flex: 1;
     padding: 10px;
-    height: 10px;
-    cursor : pointer;
+    height: 15px;
+    cursor: pointer;
   }
   & :nth-child(${({ active }) => active}) {
     background-color: black;
@@ -35,12 +39,14 @@ function HomePage() {
   const [query, setQuery] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [showCross, setShowCross] = React.useState(false);
+  const [showSearchIcon, setShowSearchIcon] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState([]);
   const [active, setActive] = React.useState(0);
   const history = useHistory();
-
   const dispatch = useDispatch();
   const people = useSelector((state) => state.people.data);
+
+  // Function to search for the result based on query
   function getResult(query) {
     let output = people
       .filter((person) => person.name.toLowerCase().includes(query))
@@ -49,6 +55,8 @@ function HomePage() {
     setSuggestions(output);
     setLoading(false);
   }
+
+  // Debounce function
   const debounce = function (fn, d) {
     let timer;
     let context = this;
@@ -58,6 +66,7 @@ function HomePage() {
         fn.apply(context, arguments);
         setShowCross(true);
         setLoading(false);
+        setShowSearchIcon(true);
       }, d);
     };
   };
@@ -65,17 +74,22 @@ function HomePage() {
 
   React.useEffect(() => {
     dispatch(getPeople());
+    if (loading) {
+      setShowSearchIcon(false);
+    }
     if (query) {
       betterFunction(query);
     } else {
       setLoading(false);
       setShowCross(false);
+      setShowSearchIcon(false);
       setSuggestions([]);
     }
   }, [query]);
 
+  //function to handle when user click on one of the suggestions
   const handleClick = () => {
-    let url = suggestions[active].url;
+    let url = suggestions[active - 1].url;
     console.log(url);
     let split_url = url.split("/");
     let id = split_url[split_url.length - 2];
@@ -83,6 +97,7 @@ function HomePage() {
     history.push(`/person/${id}`);
   };
 
+  // Funtion to handle changes when user press down arrow, up arrow ,and enter key
   const handleChangeActiveSuggestion = (e) => {
     console.log(active);
     switch (e.keyCode) {
@@ -107,7 +122,7 @@ function HomePage() {
         break;
       }
       case 13: {
-        let url = suggestions[active].url;
+        let url = suggestions[active - 1].url;
         console.log(url);
         let split_url = url.split("/");
         let id = split_url[split_url.length - 2];
@@ -121,6 +136,7 @@ function HomePage() {
     }
   };
 
+  //Function to handle changes in search bar
   const handleInputChange = (e) => {
     setQuery(e.target.value);
     setLoading(true);
@@ -155,6 +171,14 @@ function HomePage() {
               src={loadingGif}
               alt="loading"
               height="18px"
+            />
+          )}
+          {showSearchIcon && (
+            <img
+              style={{ marginLeft: "10px" }}
+              src={searchIcon}
+              alt="search-icon"
+              height="20px"
             />
           )}
         </div>
