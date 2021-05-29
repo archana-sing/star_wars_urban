@@ -4,9 +4,9 @@ In this project, I have made a search component, where user can enter some query
 User can also use **up arrow and down arrow keys** to navigate through the result and **enter key** to select a particular result.
 When a user select any particular result, it will show that particular person profile page.
 
-To build this product, I have used **Star Wars API https://swapi.dev/** 
+To build this product, I have used **Star Wars API  :  https://swapi.dev/** 
 
-### Demo of the product :  
+### Demo of the product :  https://bit.ly/3yNpOF9
 
 # Steps to install the project:
 
@@ -28,6 +28,7 @@ To build this product, I have used **Star Wars API https://swapi.dev/**
 
 * #### Now you can access the app at this URL: http://localhost:3000/
 
+
 ## Technologies used
   
   * React
@@ -44,15 +45,15 @@ To build this product, I have used **Star Wars API https://swapi.dev/**
 
  1. In order to use the product , you need to do npm start in your console.
 
-  ![Landing Page]()
+  ![Landing Page](https://github.com/archana-sing/star_wars_urban/blob/main/Samples/star_wars_landing_page_2.png)
 
  2. Here you can see the main page , in search bar type some query, it will show you somw results based on that.You can use up arrow and down arrow keys to navigate through the result. To select any particular result you can use enter key or simply can click on the result.
 
-  ![query]()
+  ![search-component](https://github.com/archana-sing/star_wars_urban/blob/main/Samples/star_wars_search_component_2.png)
 
  3. After you clikced the result, it will show you the particular star warrior profile, image is static for all the resuls. You can click **Go back to main button** to go back to the main page.
 
-  ![profile page]()
+  ![profile page](https://github.com/archana-sing/star_wars_urban/blob/main/Samples/star_wars_profile_page_2.png)
  
 
   
