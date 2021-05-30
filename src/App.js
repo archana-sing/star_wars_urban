@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Switch>
 
-          <Route path="star_wars_urban/" exact>
+          <Route path="/" exact>
             <HomePage />
           </Route>
 
