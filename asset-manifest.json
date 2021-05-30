@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/star_wars_urban/static/css/main.ceb22f43.chunk.css",
-    "main.js": "/star_wars_urban/static/js/main.ceb2322a.chunk.js",
-    "main.js.map": "/star_wars_urban/static/js/main.ceb2322a.chunk.js.map",
+    "main.js": "/star_wars_urban/static/js/main.281ea439.chunk.js",
+    "main.js.map": "/star_wars_urban/static/js/main.281ea439.chunk.js.map",
     "runtime-main.js": "/star_wars_urban/static/js/runtime-main.04183d31.js",
     "runtime-main.js.map": "/star_wars_urban/static/js/runtime-main.04183d31.js.map",
     "static/js/2.383dc80a.chunk.js": "/star_wars_urban/static/js/2.383dc80a.chunk.js",
     "static/js/2.383dc80a.chunk.js.map": "/star_wars_urban/static/js/2.383dc80a.chunk.js.map",
     "index.html": "/star_wars_urban/index.html",
-    "precache-manifest.cd7768be6286dff114fd59f394cb0762.js": "/star_wars_urban/precache-manifest.cd7768be6286dff114fd59f394cb0762.js",
+    "precache-manifest.9c39a6e7fea415cf795a23bd93e57ad2.js": "/star_wars_urban/precache-manifest.9c39a6e7fea415cf795a23bd93e57ad2.js",
     "service-worker.js": "/star_wars_urban/service-worker.js",
     "static/css/main.ceb22f43.chunk.css.map": "/star_wars_urban/static/css/main.ceb22f43.chunk.css.map",
     "static/js/2.383dc80a.chunk.js.LICENSE.txt": "/star_wars_urban/static/js/2.383dc80a.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.04183d31.js",
     "static/js/2.383dc80a.chunk.js",
     "static/css/main.ceb22f43.chunk.css",
-    "static/js/main.ceb2322a.chunk.js"
+    "static/js/main.281ea439.chunk.js"
   ]
 }
